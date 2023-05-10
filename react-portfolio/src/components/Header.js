@@ -5,27 +5,37 @@ import About from './About';
 import Portfolio from './Portfolio';
 import Contact from './Contact';
 
+const styles = {
+    header: {
+        background: '#56A3A6'
+    }
+}
+
 export default function Header() {
+
     const [currentPage, setCurrentPage] = useState('About');
+
     const renderPage = () => {
         if (currentPage === 'Resume') {
-        return <Resume />;
+            return <Resume />;
+        } else if (currentPage === 'About') {
+            return <About />;
+        } else if (currentPage === 'Portfolio') {
+            return <Portfolio />;
+        } else {
+            return <Contact />;
         }
-        if (currentPage === 'About') {
-        return <About />;
-        }
-        if (currentPage === 'Portfolio') {
-        return <Portfolio />;
-        }
-        return <Contact />;
     };
+
     const handlePageChange = (page) => setCurrentPage(page);
 
     return (
-        <div class="flex-box justify-content-center">
-            <div class="row">
+        <div className="d-flex justify-content-center flex-wrap">
+            <div class="row" style={styles.header}>
                 <h1>Talon's Portfolio</h1>
                 <Navigation currentPage={currentPage} handlePageChange={handlePageChange}/>
+            </div>
+            <div>
                 {renderPage()}
             </div>
         </div>
