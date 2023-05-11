@@ -1,22 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { send } from 'emailjs-com';
+
+
 
 export default function Contact() {
+
+  const [toSend, setToSend] = useState({
+    from_name: '',
+    to_name: 'Talon Meyer',
+    message: '',
+    reply_to: '',
+  });
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    send(
+      'service_b95yus9',
+      'template_klxxdxr',
+      toSend,
+      'fKepqLb4KSa9fdlEn'
+    )
+      .then((response) => {
+        console.log('SUCCESS!', response.status, response.text);
+      })
+      .catch((err) => {
+        console.log('FAILED...', err);
+      });
+  };
+
+  const handleChange = (e) => {
+    setToSend({ ...toSend, [e.target.name]: e.target.value });
+  };
+
   return (
-    <div>
-      <h1>Contact Page</h1>
-      <p>
-        Integer cursus bibendum sem non pretium. Vestibulum in aliquet sem, quis
-        molestie urna. Aliquam semper ultrices varius. Aliquam faucibus sit amet
-        magna a ultrices. Aenean pellentesque placerat lacus imperdiet
-        efficitur. In felis nisl, luctus non ante euismod, tincidunt bibendum
-        mi. In a molestie nisl, eu sodales diam. Nam tincidunt lacus quis magna
-        posuere, eget tristique dui dapibus. Maecenas fermentum elementum
-        faucibus. Quisque nec metus vestibulum, egestas massa eu, sollicitudin
-        ipsum. Nulla facilisi. Sed ut erat ligula. Nam tincidunt nunc in nibh
-        dictum ullamcorper. Class aptent taciti sociosqu ad litora torquent per
-        conubia nostra, per inceptos himenaeos. Etiam ornare rutrum felis at
-        rhoncus. Etiam vel condimentum magna, quis tempor nulla.
-      </p>
-    </div>
+  <div class="d-flex" onSubmit={onSubmit}>
+    <form class="row">
+      <div className="form-group">
+        <label for="fromNameTextArea">Your Name</label>
+        <input type="text" name="from_name" value={toSend.from_name} onChange={handleChange} className="form-control" id="formControlName" placeholder="Your name"/>
+      </div>
+      <div className="form-group">
+        <label for="emailInput">Your Email Address</label>
+        <input type="text" name="reply_to" value={toSend.reply_to} onChange={handleChange} className="form-control" id="emailInput" placeholder="name@example.com"/>
+      </div>
+      <div className="form-group">
+        <label for="messageTextArea">Message</label>
+        <textarea name="message" value={toSend.message} onChange={handleChange} className="form-control" id="messageTextArea" rows="3" placeholder="Your message here"></textarea>
+        <button className="btn btn-primary" type="submit">Send</button>
+      </div>
+    </form>
+  </div>
   );
 }

@@ -31,11 +31,11 @@ export default function Header() {
 
     return (
         <div className="d-flex justify-content-center flex-wrap">
-            <div class="row flex-fill" style={styles.header}>
+            <div className="row flex-fill" style={styles.header}>
                 <h1>Talon's Portfolio</h1>
                 <Navigation currentPage={currentPage} handlePageChange={handlePageChange}/>
             </div>
-            <div>
+            <div className="container">
                 {renderPage()}
             </div>
         </div>
