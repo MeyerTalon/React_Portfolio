@@ -1,6 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { send } from 'emailjs-com';
 
+const styles = {
+  warning: {
+    color: 'red'
+  }
+}
+
 export default function Contact() {
 
   const [toSend, setToSend] = useState({
@@ -48,30 +54,39 @@ export default function Contact() {
     });
   };
 
-  const [emptyMessage, setEmptyMessage] = useState(<p></p>)
-  useOutsideClick(ref, () => {
-    if (toSend.message === '') {
-      setEmptyMessage(<p>Empty message box</p>)
+  const validateEmail = (inputText) => {
+    const mailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if(inputText.match(mailRegex)) {
+      return true;
     } else {
-      setEmptyMessage(<p></p>)
+      return false;
+    }
+  }
+
+  const [warning, setWarning] = useState(<p></p>);
+  useOutsideClick(ref, () => {
+    if (toSend.from_name === '' || toSend.message === '' || !validateEmail(toSend.reply_to)) {
+      setWarning(<p style={styles.warning}>Please enter a valid email and fill in the name and message sections.</p>);
+    } else {
+      setWarning(<p></p>);
     }
   });
 
   return (
-  <div class="d-flex" onSubmit={onSubmit}>
-    <form class="row">
+  <div className="d-flex" onSubmit={onSubmit}  ref={ref}>
+    <form className="row">
       <div className="form-group">
-        <label for="fromNameTextArea">Your Name:</label>
+        <label>Your Name:</label>
         <input type="text" name="from_name" value={toSend.from_name} onChange={handleChange} className="form-control" id="formControlName" placeholder="Your name"/>
       </div>
       <div className="form-group">
-        <label for="emailInput">Email Address:</label>
+        <label>Email Address:</label>
         <input type="text" name="reply_to" value={toSend.reply_to} onChange={handleChange} className="form-control" id="emailInput" placeholder="name@example.com"/>
       </div>
-      <div className="form-group" ref={ref}>
-        <label for="messageTextArea">Message:</label>
+      <div className="form-group">
+        <label>Message:</label>
         <textarea name="message" value={toSend.message} onChange={handleChange} className="form-control" id="messageTextArea" rows="3" placeholder="Your message here"></textarea>
-        {emptyMessage}
+        {warning}
         <button className="btn btn-primary" type="submit">Send</button>
       </div>
     </form>

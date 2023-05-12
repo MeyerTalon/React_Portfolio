@@ -7,7 +7,8 @@ import Contact from './Contact';
 
 const styles = {
     header: {
-        background: '#56A3A6'
+        background: '#56A3A6',
+        color: '#1F5673'
     }
 }
 

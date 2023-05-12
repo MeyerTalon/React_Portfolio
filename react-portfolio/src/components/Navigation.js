@@ -1,8 +1,12 @@
 import React from 'react';
 
+const styles = {
+  color: "#1F5673"
+}
+
 function Navigation({ currentPage, handlePageChange }) {
   return (
-    <ul className="d-flex nav nav-tabs justify-content-end flex-fill">
+    <ul className="d-flex nav nav-tabs justify-content-end flex-fill" style={styles}>
       <li className="nav-item">
         <a
           href="#about"
