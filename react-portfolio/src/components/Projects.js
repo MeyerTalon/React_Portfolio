@@ -94,11 +94,11 @@ const projects = [
       deployedLink: "https://meyertalon.github.io/Weather_Dashboard/"
     },
     {
-      name: "Eccommerce Backend Mockup",
-      description:"A mockup for an eccommerce website useing sequelize and mySQL!",
-      imageSrc: " ../images/DollarSign.png",
-      githubLink: "https://github.com/MeyerTalon/Ecommerce_Backend",
-      deployedLink: ""
+      name: "AutoInsta",
+      description:"An Instagram scheduler using a full MERN Stack",
+      imageSrc: " ../images/AutoInsta.png",
+      githubLink: "https://github.com/MeyerTalon/AutoInsta",
+      deployedLink: "https://limitless-taiga-26718.herokuapp.com/profile"
     },
   ];
 export default function Projects() {
